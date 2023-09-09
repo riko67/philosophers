@@ -6,7 +6,7 @@
 /*   By: ddelacou <ddelacou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 20:13:24 by ddelacou          #+#    #+#             */
-/*   Updated: 2023/09/09 17:21:11 by ddelacou         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:05:35 by ddelacou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ int init_philo(t_global *global, int *philosophers_done)
     while (i < global->nbrephilo)
     {
         global->philo[i].global = global;
+        global->philo[i].time_to_die = global->time_to_die;
         global->philo[i].id = i + 1;
         global->philo[i].program_should_stop = &philosophers_done[i];
-        global->philo[i].time_of_last_meal.tv_sec = 0;
-        global->philo[i].time_of_last_meal.tv_usec = 0;
+        global->philo[i].time_of_last_meal.tv_sec = global->program_start.tv_sec;
+        global->philo[i].time_of_last_meal.tv_usec = global->program_start.tv_usec;
         global->philo[i].meals_to_eat = global->meals_to_eat;
         global->philo[i].fork_left = &(global->fork_mutex[i]);
         if(global->nbrephilo != 1)
@@ -75,6 +76,7 @@ int *init_global(char **argv, t_global *global,int *philosophers_done)
     if (argv[5])
         global->meals_to_eat = atoi(argv[5]);
     gettimeofday(&global->program_start, NULL);
+    printf("program_start : %ld, %d", global->program_start.tv_sec, global->program_start.tv_usec);
     global->program_should_stop = 0;
     return (philosophers_done);
 } 

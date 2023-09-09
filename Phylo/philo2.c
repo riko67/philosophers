@@ -6,7 +6,7 @@
 /*   By: ddelacou <ddelacou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:11:00 by ddelacou          #+#    #+#             */
-/*   Updated: 2023/09/09 17:52:10 by ddelacou         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:06:52 by ddelacou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void *philosopher(void *arg)
         printf("%d %d has taken a fork\n", get_time_since_start(philo->global->program_start), id);
         gettimeofday(&now, NULL);
         temps_attente = ((now.tv_sec - philo->time_of_last_meal.tv_sec) * 1000 + (now.tv_usec - philo->time_of_last_meal.tv_usec) / 1000);
+        printf("temps d attente %d\n",temps_attente);
         if(temps_attente >= philo->time_to_die)
         {
             printf("%d %d died\n", get_time_since_start(philo->global->program_start), id);

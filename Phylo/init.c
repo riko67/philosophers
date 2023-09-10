@@ -50,6 +50,7 @@ int init_philo(t_global *global, int *philosophers_done)
         global->philo[i].time_of_last_meal.tv_sec = global->program_start.tv_sec;
         global->philo[i].time_of_last_meal.tv_usec = global->program_start.tv_usec;
         global->philo[i].meals_to_eat = global->meals_to_eat;
+        global->philo[i].stop = global->stop;
         global->philo[i].fork_left = &(global->fork_mutex[i]);
         if(global->nbrephilo != 1)
             global->philo[i].fork_right = &(global->fork_mutex[(i + 1) % global->nbrephilo]);
@@ -74,6 +75,7 @@ int *init_global(char **argv, t_global *global,int *philosophers_done)
     global->time_to_eat = atoi(argv[3]);
     global->time_to_sleep = atoi(argv[4]);
     global->meals_to_eat = -1;
+    pthread_mutex_init(&global->stop, NULL);
     if (argv[5])
         global->meals_to_eat = atoi(argv[5]);
     gettimeofday(&global->program_start, NULL);

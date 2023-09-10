@@ -15,6 +15,7 @@
 
 void prisefourchette(t_philo *philo)
 {
+    pthread_mutex_lock(philo->stop);
     pthread_mutex_lock(philo->fork_left);
     printf("%d %d has taken a fork\n", get_time_since_start(philo->global->program_start), philo->id);
     pthread_mutex_lock(philo->fork_right);
@@ -29,6 +30,7 @@ void mangeur(t_philo *philo)
     gettimeofday(&philo->time_of_last_meal, NULL);
     pthread_mutex_unlock(philo->fork_left);
     pthread_mutex_unlock(philo->fork_right);
+    pthread_mutex_unlock(philo->stop);
 }
 void mort(t_philo *philo)
 {

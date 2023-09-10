@@ -32,6 +32,7 @@ typedef struct s_global
     struct timeval program_start;
     int program_should_stop;
     pthread_mutex_t *fork_mutex;
+    pthread_mutex_t *stop;
     t_philo *philo;
 }   t_global;
 
